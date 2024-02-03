@@ -4,6 +4,41 @@
     box-sizing: border-box;
 }
 
+h2,
+h3,
+h4,
+h5 {
+    text-decoration: underline;
+}
+
+#navbar {
+    height: 125px;
+    background-color: darkblue;
+    color: white;
+    border-bottom: solid thick black;
+}
+
 #searchSection {
     height: 100vh;
+    background-color: lightgray;
+}
+
+#searchInput {
+    border: solid black;
+    border-radius: 5px;
+}
+
+#searchBtn {
+    border-left: solid black;
+    border-radius: 0;
+}
+
+#weatherInfo {
+    height: 100vh;
+    border: solid thick black;
+    border-top: 0;
+}
+
+#currentWeather {
+    height: 60vh;
 }
