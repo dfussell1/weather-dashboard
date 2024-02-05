@@ -14,7 +14,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 // function to grab latitude and longitude from user's city input 
 function getLatLong(city) {
     // API URL to get basic weather and geo data from searched city
-    const LatLongURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`
+    const LatLongURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`
 
     // fetch data and return in JSON
     fetch(LatLongURL)
@@ -46,7 +46,7 @@ function displayCurrentWeather(city, weatherData) {
             <p id="currentTemp">Temperature: ${weatherData.main.temp}°F</p>
             <p id="currentHumidity">Humidity: ${weatherData.main.humidity}%</p>
             <p id="currentWindSpeed">Wind Speed: ${weatherData.wind.speed}MPH
-            <p id="currentWeatherIcon"><img src="http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png"</p>
+            <p id="currentWeatherIcon"><img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png"</p>
         <div/>
     `;
 }
@@ -54,7 +54,7 @@ function displayCurrentWeather(city, weatherData) {
 // function to retrieve future forecast data from user's search input
 function getWeatherForecast(city, latitude, longitude) {
     // different API URL to grab forecast data
-    const weatherURL = `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`
+    const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`
 
     // fetch data and return in JSON
     fetch(weatherURL)
@@ -100,7 +100,7 @@ function displayWeatherForecast(dailyData) {
                 <p id="temp${i}">Temperature: ${dailyData[i].main.temp}°F</p>
                 <p id="humidity${i}">Humidity: ${dailyData[i].main.humidity}%</p>
                 <p id="windSpeed${i}">Wind Speed: ${dailyData[i].wind.speed}MPH</p>
-                <p id="icon${i}"><img src="http://openweathermap.org/img/wn/${dailyData[i].weather[0].icon}.png"</p>
+                <p id="icon${i}"><img src="https://openweathermap.org/img/wn/${dailyData[i].weather[0].icon}.png"</p>
             <div/>
         <div/>
         `
