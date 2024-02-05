@@ -4,21 +4,22 @@ const currentDay =  dayjs().format('MM/DD/YYYY');
 document.getElementById('searchBtn').addEventListener('click', function() {
     const city = document.getElementById('searchCity').value
     getLatLong(city);
+    addToHistory(city);
 });
 
 function getLatLong(city) {
     const LatLongURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`
 
     fetch(LatLongURL)
-        .then(function(response) {
+        .then(function(response) {  
             return response.json();
         })
         .then(function(weatherData) {
             console.log(weatherData)
-            displayCurrentWeather(city, weatherData);
             const latitude = weatherData.coord.lat;
             const longitude = weatherData.coord.lon;
             console.log(latitude, longitude)
+            displayCurrentWeather(city, weatherData);
             getWeatherForecast(city, latitude, longitude)
         });
 }
@@ -83,6 +84,32 @@ function displayWeatherForecast(dailyData) {
                 <p id="icon${i}"><img src="http://openweathermap.org/img/wn/${dailyData[i].weather[0].icon}.png"</p>
         <div/>
         `
-
-    }
+    };
 }
+
+function addToHistory(city) {
+    let savedCities = JSON.parse(localStorage.getItem('savedCities')) || []; 
+    
+    if(!savedCities.includes(city)) {
+        savedCities.push(city);
+        localStorage.setItem('savedCities', JSON.stringify(savedCities));
+    }
+
+    const searchedCityEl = document.createElement('button');
+    searchedCityEl.textContent = city;
+
+    searchedCityEl.addEventListener('click', function() {
+        getLatLong(city);
+    });
+    const searchHistoryEl = document.getElementById('searchHistory');
+    searchHistoryEl.appendChild(searchedCityEl);
+}
+
+function displaySearchHistory() {
+    const savedCities = JSON.parse(localStorage.getItem('savedCities')) || [];
+    savedCities.forEach(city => {
+        addToHistory(city);
+    });
+}
+
+displaySearchHistory();
