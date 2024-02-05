@@ -40,5 +40,6 @@ h5 {
 }
 
 #currentWeather {
-    height: 50vh;
+    height: 40vh;
+    border-bottom: solid thick black;
 }
