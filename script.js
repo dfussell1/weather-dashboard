@@ -1,5 +1,5 @@
 const apiKey = '9aed6d7911ae6ff9006f7346bc3c6632';
-const currentDay =  dayjs().format('DD/MM/YYYY');
+const currentDay =  dayjs().format('MM/DD/YYYY');
 
 document.getElementById('searchBtn').addEventListener('click', function() {
     const city = document.getElementById('searchCity').value
@@ -27,11 +27,14 @@ function displayCurrentWeather(city, weatherData) {
     const currentWeatherEl = document.getElementById('currentWeather');
     
     currentWeatherEl.innerHTML = `
+    
     <h2>Current Forecast: ${weatherData.name} on (${currentDay})</h2>
-    <p id="currentTemp">Temperature: ${weatherData.main.temp}°F</p>
-    <p id="currentHumidity">Humidity: ${weatherData.main.humidity}%</p>
-    <p id="currentWindSpeed">Wind Speed: ${weatherData.wind.speed}MPH
-    <p id="currentWeatherIcon"><img src="http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png"</p>
+        <card id="currentWeatherCard>
+            <p id="currentTemp">Temperature: ${weatherData.main.temp}°F</p>
+            <p id="currentHumidity">Humidity: ${weatherData.main.humidity}%</p>
+            <p id="currentWindSpeed">Wind Speed: ${weatherData.wind.speed}MPH
+            <p id="currentWeatherIcon"><img src="http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png"</p>
+        <card/>
     `;
 }
 
@@ -43,7 +46,7 @@ function getWeatherForecast(city, latitude, longitude) {
             return response.json();
         })
         .then(function(forecastData) {
-            // console.log(forecastData);
+            console.log(forecastData);
 
             const dailyData = [];
 
@@ -61,8 +64,25 @@ function getWeatherForecast(city, latitude, longitude) {
         });
 }
 
-// function displayWeatherForecast(dailyData) {
-//     const forecastWeatherEl = document.getElementById('fiveDayWeather');
+function displayWeatherForecast(dailyData) {
+    const forecastWeatherEl = document.getElementById('fiveDayWeather');
 
-//     forecastWeatherEl.innerHTML =
-// }
+    forecastWeatherEl.innerHTML =  `
+    <h2>5-Day Forecast:</h2>
+    `;
+
+    for(let i = 0; i < 5; i++) {
+        forecastWeatherEl.innerHTML += `
+        <div>
+            <card class="forecast-card id="card${i}">
+                <p id="date${i}">${dayjs().add(i + 1, 'day').format('MM/DD/YYYY')}</p>
+                <card/>
+                <p id="temp${i}">Temperature: ${dailyData[i].main.temp}°F</p>
+                <p id="humidity${i}">Humidity: ${dailyData[i].main.humidity}%</p>
+                <p id="windSpeed${i}">Wind Speed: ${dailyData[i].wind.speed}MPH</p>
+                <p id="icon${i}"><img src="http://openweathermap.org/img/wn/${dailyData[i].weather[0].icon}.png"</p>
+        <div/>
+        `
+
+    }
+}
