@@ -112,4 +112,10 @@ function displaySearchHistory() {
     });
 }
 
+document.getElementById('clearHistoryBtn').addEventListener("click", function() {
+    localStorage.removeItem('savedCities');
+    const searchHistoryEl = document.getElementById('searchHistory'); 
+    searchHistoryEl.innerHTML = '';
+})
+
 displaySearchHistory();
